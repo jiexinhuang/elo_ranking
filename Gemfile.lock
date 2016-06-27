@@ -88,6 +88,8 @@ GEM
     pry-byebug (3.4.0)
       byebug (~> 9.0)
       pry (~> 0.10)
+    pry-rails (0.3.4)
+      pry (>= 0.9.10)
     puma (3.4.0)
     rack (2.0.0.rc1)
       json
@@ -186,6 +188,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   listen (~> 3.0.5)
   pry-byebug
+  pry-rails
   puma (~> 3.0)
   rails (>= 5.0.0.rc1, < 5.1)
   rspec-rails

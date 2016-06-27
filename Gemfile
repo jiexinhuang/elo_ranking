@@ -22,6 +22,7 @@ gem 'turbolinks', '~> 5.x'
 gem 'jbuilder', '~> 2.0'
 
 group :development, :test do
+  gem 'pry-rails'
   gem 'pry-byebug'
   gem 'byebug', platform: :mri
   gem 'rspec-rails'
