@@ -1,24 +1,9 @@
-# README
+# Elo Ranking App
+A Rails 5 web application to record game results and calculate player ratings using Elo ranking method.
+Elo ranking calculation is implemented as described in [wikipedia](https://en.wikipedia.org/wiki/Elo_rating_system#Mathematical_details)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
 
 * Configuration
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* Run test suite
+`bundle install && bundle exec rspec spec`
