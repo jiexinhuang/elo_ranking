@@ -25,7 +25,12 @@ group :development, :test do
   gem 'pry-rails'
   gem 'pry-byebug'
   gem 'byebug', platform: :mri
+end
+
+group :test do
   gem 'rspec-rails'
+  gem 'rspec-its'
+  gem 'shoulda-matchers'
 end
 
 group :development do
