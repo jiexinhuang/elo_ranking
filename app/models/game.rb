@@ -12,6 +12,10 @@ class Game < ApplicationRecord
     1.0 / ( 1.0 + 10.0 ** relative_rating_gap)
   end
 
+  def result_gap
+    result - expected_result
+  end
+
   private
 
   # TODO: Rename this constant
