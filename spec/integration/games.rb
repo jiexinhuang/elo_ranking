@@ -1,8 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe 'Test with lots of games', :type => :model do
-  let(:player1) { Player.create(game_type: 'fifa', user_id: 1, rating: 1000) }
-  let(:player2) { Player.create(game_type: 'fifa', user_id: 2, rating: 1000) }
+  let(:ronaldo) { User.create(username: 'ronaldo') }
+  let(:messi) { User.create(username: 'messi') }
+  let(:player1) { Player.create(game_type: 'fifa', user: ronaldo, rating: 1000) }
+  let(:player2) { Player.create(game_type: 'fifa', user: messi, rating: 1000) }
 
   it 'create 100 games with random results' do
     create_random_games(100)
