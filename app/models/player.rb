@@ -3,6 +3,7 @@ class Player < ApplicationRecord
 
   validates :game_type, presence: true
   validates :rating, presence: true
+  delegate :username, to: :user
 
   def games
     Game.where("`home_player_id` = #{id} OR `away_player_id` = #{id}")
