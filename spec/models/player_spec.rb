@@ -45,4 +45,40 @@ RSpec.describe Player, :type => :model do
       it { is_expected.not_to be_starter }
     end
   end
+
+  describe '#k_factor' do
+    subject(:player) { Player.create(game_type: 'fifa', user_id: 1, rating: 1000, pro: pro) }
+    let(:pro) { false }
+    let(:pro_k_factor) { 10 }
+    let(:default_k_factor) { 15 }
+    let(:starter_k_factor) { 20 }
+    let(:starter_games_boundary) { 50 }
+    let(:games_count) { 51 }
+
+    before do
+      allow(Game).to receive(:where).and_return(double(count: games_count))
+      allow(Elo).to receive(:config).and_return(
+        double(
+          starter_games_boundary: starter_games_boundary,
+          pro_k_factor: pro_k_factor,
+          default_k_factor: default_k_factor,
+          starter_k_factor: starter_k_factor,
+        )
+      )
+    end
+
+    context 'when the player is a pro' do
+      let(:pro) { true }
+      its(:k_factor) { is_expected.to eq pro_k_factor }
+    end
+
+    context 'when the player is a new starter' do
+      let(:games_count) { 1 }
+      its(:k_factor) { is_expected.to eq starter_k_factor }
+    end
+
+    context 'when the player is neither a new starter nor a pro' do
+      its(:k_factor) { is_expected.to eq default_k_factor }
+    end
+  end
 end
