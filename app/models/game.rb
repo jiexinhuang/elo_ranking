@@ -9,7 +9,7 @@ class Game < ApplicationRecord
 
   # See http://en.wikipedia.org/wiki/Elo_rating_system#Mathematical_details for more details
   def expected_result
-    1.0 / ( 1.0 + 10.0 ** relative_rating_gap)
+    @expected_result ||= 1.0 / ( 1.0 + 10.0 ** relative_rating_gap)
   end
 
   def result_gap
