@@ -1,0 +1,24 @@
+h2
+  = @game_type.titleize
+table
+  thead
+    tr
+      th
+        | Rank
+      th
+        | Username
+      th
+        | Rating
+      th
+        | Games played
+  tbody
+    - @players.each_with_index do |player, index|
+      tr
+        td
+          = index + 1
+        td
+          = player.id
+        td
+          = player.rating
+        td
+          = player.games.count
