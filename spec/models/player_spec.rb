@@ -47,13 +47,14 @@ RSpec.describe Player, :type => :model do
   end
 
   describe '#k_factor' do
-    subject(:player) { Player.create(game_type: 'fifa', user_id: 1, rating: 1000, pro: pro) }
+    let(:player) { Player.create(game_type: 'fifa', user_id: 1, rating: 1000, pro: pro) }
     let(:pro) { false }
     let(:pro_k_factor) { 10 }
     let(:default_k_factor) { 15 }
     let(:starter_k_factor) { 20 }
     let(:starter_games_boundary) { 50 }
     let(:games_count) { 51 }
+    subject(:k_factor) { player.k_factor }
 
     before do
       allow(Game).to receive(:where).and_return(double(count: games_count))
@@ -69,16 +70,37 @@ RSpec.describe Player, :type => :model do
 
     context 'when the player is a pro' do
       let(:pro) { true }
-      its(:k_factor) { is_expected.to eq pro_k_factor }
+      it { is_expected.to eq pro_k_factor }
     end
 
     context 'when the player is a new starter' do
       let(:games_count) { 1 }
-      its(:k_factor) { is_expected.to eq starter_k_factor }
+      it { is_expected.to eq starter_k_factor }
     end
 
     context 'when the player is neither a new starter nor a pro' do
-      its(:k_factor) { is_expected.to eq default_k_factor }
+      it { is_expected.to eq default_k_factor }
+    end
+  end
+
+  describe '#update_rating' do
+    let(:player) { Player.create(game_type: 'fifa', user_id: 1, rating: 1000) }
+    let(:pro_rating_boundary) { 1500 }
+    let(:diff) { 100 }
+    subject(:update_rating) { player.update_rating(diff) }
+    before do
+      allow(Elo).to receive(:config).and_return(double(pro_rating_boundary: pro_rating_boundary))
+    end
+
+    it 'updates player rating with diff' do
+      expect { update_rating }.to change(player, :rating).by(100)
+    end
+
+    context 'when udpated rating is higher or equal to pro_rating_boundary' do
+      let(:diff) { 500 }
+      it 'updates player rating with diff' do
+        expect { update_rating }.to change(player, :pro?).from(false).to(true)
+      end
     end
   end
 end
