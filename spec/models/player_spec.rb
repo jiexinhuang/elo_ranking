@@ -20,4 +20,29 @@ RSpec.describe Player, :type => :model do
       expect(player3.games).to eq [game3, game4]
     end
   end
+
+  describe '#starter?' do
+    subject(:player) { Player.create(game_type: 'fifa', user_id: 1, rating: 1000) }
+    let(:starter_games_boundary) { 10 }
+
+    before do
+      allow(Game).to receive(:where).and_return(double(count: games_count))
+      allow(Elo).to receive(:config).and_return(double(starter_games_boundary: starter_games_boundary))
+    end
+
+    context 'when player played games less than starter boundary' do
+      let(:games_count) { 9 }
+      it { is_expected.to be_starter }
+    end
+
+    context 'when player played games equal to starter boundary' do
+      let(:games_count) { 10 }
+      it { is_expected.not_to be_starter }
+    end
+
+    context 'when player played games more than starter boundary' do
+      let(:games_count) { 11 }
+      it { is_expected.not_to be_starter }
+    end
+  end
 end

@@ -7,4 +7,7 @@ class Player < ApplicationRecord
     Game.where("`home_player_id` = #{id} OR `away_player_id` = #{id}")
   end
 
+  def starter?
+    games.count < Elo.config.starter_games_boundary
+  end
 end
