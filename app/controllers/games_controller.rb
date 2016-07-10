@@ -1,7 +1,7 @@
 class GamesController < ApplicationController
   before_action :set_game_type
   def new
-    @game = Game.new
+    @form = GameForm.new(game_type: @game_type)
   end
 
   def create

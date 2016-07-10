@@ -1,1 +1,15 @@
+h3 = "New #{@game_type.titleize} game"
 
+= form_for @form, url: "/#{@game_type}/games" do |f|
+  = f.label :away_player_username
+  = f.text_field :away_player_username
+  = f.label :result_3, 'You win'
+  = f.radio_button :result, 3
+  br
+  = f.label :result_1, 'Draw'
+  = f.radio_button :result, 1
+  br
+  = f.label :result_0, 'You lose'
+  = f.radio_button :result, 0
+  br
+  = f.submit
