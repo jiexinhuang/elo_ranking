@@ -22,3 +22,6 @@ table
           = player.rating
         td
           = player.games.count
+hr
+
+= link_to 'Submit your result', "/#{@game_type}/games/new", class: 'button'
